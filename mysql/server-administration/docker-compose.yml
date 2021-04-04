@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  db:
+    build: .
+    image: tomoya_mysql_server_administration
+    environment:
+      - MYSQL_ROOT_PASSWORD=blah
+      - MYSQL_DATABASE=my_schema
+    ports:
+      - "3306:3306" 
