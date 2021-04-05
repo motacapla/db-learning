@@ -1,6 +1,7 @@
 # References
 https://dev.mysql.com/doc/refman/8.0/en/backup-and-recovery.html
 https://qiita.com/Tocyuki/items/f34ca92b8bf6e0014923
+http://www.tohoho-web.com/ex/mysql-mysqldump.html
 
 # Physical (Raw) Versus Logical Backups
 ## Physical backup
