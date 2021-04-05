@@ -81,3 +81,53 @@ It is available through third-party solutions such as Veritas, LVM, or ZFS.
 - Incremental recovery is recovery of changes made during a given time span
 - Point-in-time recovery is based on the binary log and typically follows a full recovery from the backup files that restores the server to its state when the backup was made.
 Then the data changes written in the binary log files are applied as incremental recovery to redo data modifications and bring the server up to the desired point in time.
+
+# Hands-on
+Confirmed with mysqldump
+
+## Result
+### Data
+mysql> select * from tomoya.pet;
++----+------+
+| id | name |
++----+------+
+|  1 | fish |
+|  2 | cat  |
+|  3 | dog  |
++----+------+
+3 rows in set (0.00 sec)
+
+### Backup
+root@ebc0e3141cd6:/# mysqldump -uroot -pblah --single-transaction --flush-logs --master-data=2 --all-databases > backup.sql
+
+### Drop table
+root@ebc0e3141cd6:/# mysql -uroot -pblah
+mysql> DROP TABLE tomoya.pet;
+Query OK, 0 rows affected (0.03 sec)
+
+### Restore
+root@ebc0e3141cd6:/# mysql -uroot -pblah < backup.sql 
+
+### Verify
+root@ebc0e3141cd6:/# mysql -uroot -pblah
+mysql> use tomoya
+Database changed
+
+mysql> show tables;
++------------------+
+| Tables_in_tomoya |
++------------------+
+| pet              |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from pet;
++----+------+
+| id | name |
++----+------+
+|  1 | fish |
+|  2 | cat  |
+|  3 | dog  |
++----+------+
+3 rows in set (0.00 sec)
+

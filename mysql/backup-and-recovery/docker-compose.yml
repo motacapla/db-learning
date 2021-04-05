@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  db:
+    build: .
+    container_name: tomoya_mysql_backup_and_recovery
+    image: tomoya_mysql_learning
+    environment:
+      - MYSQL_ROOT_PASSWORD=blah
+      - MYSQL_DATABASE=my_schema
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306" 
